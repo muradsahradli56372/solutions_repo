@@ -71,7 +71,9 @@ $$
 ### 4. Implementation:
  
 Now, let's implement a Python script to simulate projectile motion and visualize the range as a function of the angle of projection.
- 
+ ![alt text](download.png)
+
+
 #### Python Code (for the idealized case):
  
 ```python
@@ -103,4 +105,5 @@ plt.ylabel("Range (meters)")
 plt.grid(True)
 plt.legend()
 plt.show()
+```
 

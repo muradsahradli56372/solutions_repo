@@ -50,31 +50,27 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Investigating the Dynamics of a Forced Damped Pendulum</a>
 <ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="#1-theoretical-foundation">1. Theoretical Foundation</a>
+<li class="toctree-l3"><a class="reference internal" href="#1-theoretical-foundation">1. Theoretical Foundation:</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#resonance-condition">Resonance Condition</a>
+<li class="toctree-l4"><a class="reference internal" href="#differential-equation-for-forced-damped-pendulum">Differential Equation for Forced Damped Pendulum:</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#small-angle-approximation">Small-Angle Approximation:</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#resonance">Resonance:</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#energy-in-the-system">Energy in the System:</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#2-analysis-of-dynamics">2. Analysis of Dynamics</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#effects-of-system-parameters">Effects of System Parameters:</a>
+<li class="toctree-l3"><a class="reference internal" href="#2-analysis-of-dynamics">2. Analysis of Dynamics:</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#chaotic-motion">Chaotic Motion:</a>
+<li class="toctree-l3"><a class="reference internal" href="#3-practical-applications">3. Practical Applications:</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#4-implementation-simulations">4. Implementation (Simulations):</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#numerical-solution">Numerical Solution:</a>
 </li>
 </ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#3-practical-applications">3. Practical Applications</a>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#4-implementation-in-python">4. Implementation in Python</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#numerical-simulation-using-runge-kutta-method">Numerical Simulation using Runge-Kutta Method</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#phase-portrait-poincare-section">Phase Portrait &amp; Poincaré Section</a>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#5-deliverables-summary">5. Deliverables Summary</a>
 </li>
 </ul>
 </li>
@@ -198,108 +194,102 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="investigating-the-dynamics-of-a-forced-damped-pendulum">Investigating the Dynamics of a Forced Damped Pendulum</h1>
-<h2 id="1-theoretical-foundation"><strong>1. Theoretical Foundation</strong></h2>
-<p>The motion of a forced damped pendulum is governed by the equation:
-$$ \frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \sin\theta = F_0 \cos(\omega t) $$
-where:
-- $ \theta $ is the angular displacement,
-- $ \gamma $ is the damping coefficient,
-- $ \omega_0 = \sqrt{\frac{g}{L}} $ is the natural frequency,
-- $ F_0 $ is the amplitude of the external force,
-- $ \omega $ is the driving frequency.</p>
-<p>For small angles ($ \theta \approx \sin\theta $), the equation simplifies to:
-$$ \frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \theta = F_0 \cos(\omega t) $$</p>
-<h3 id="resonance-condition"><strong>Resonance Condition</strong></h3>
-<p>Resonance occurs when the external driving frequency matches the system's natural frequency ($ \omega \approx \omega_0 $), leading to large amplitude oscillations. The steady-state solution is:
-$$ \theta_{ss}(t) = A \cos(\omega t - \delta) $$
-where the amplitude $ A $ depends on the damping coefficient and driving force.</p>
-<hr/>
-<h2 id="2-analysis-of-dynamics"><strong>2. Analysis of Dynamics</strong></h2>
-<h3 id="effects-of-system-parameters"><strong>Effects of System Parameters:</strong></h3>
+<h2 id="1-theoretical-foundation">1. Theoretical Foundation:</h2>
+<h3 id="differential-equation-for-forced-damped-pendulum">Differential Equation for Forced Damped Pendulum:</h3>
+<p>The equation governing the motion of a forced damped pendulum is:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + 2\beta\frac{d\theta}{dt} + \omega_0^2\sin(\theta) = A\cos(\omega t)
+\]</div>
+<p>Where:
+- <span class="arithmatex">\(\theta\)</span> is the angular displacement of the pendulum.
+- <span class="arithmatex">\(\beta\)</span> is the damping coefficient.
+- <span class="arithmatex">\(\omega_0 = \sqrt{g/L}\)</span> is the natural frequency (with <span class="arithmatex">\(g\)</span> being the gravitational acceleration and <span class="arithmatex">\(L\)</span> being the length of the pendulum).
+- <span class="arithmatex">\(A\)</span> is the amplitude of the external driving force.
+- <span class="arithmatex">\(\omega\)</span> is the driving frequency.
+- <span class="arithmatex">\(t\)</span> is time.</p>
+<h3 id="small-angle-approximation">Small-Angle Approximation:</h3>
+<p>For small oscillations (<span class="arithmatex">\(\theta \ll 1\)</span>), we can approximate <span class="arithmatex">\(\sin(\theta) \approx \theta\)</span>, simplifying the equation to:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + 2\beta\frac{d\theta}{dt} + \omega_0^2\theta = A\cos(\omega t)
+\]</div>
+<p>This is a second-order linear differential equation, and you can solve it using standard methods like the characteristic equation or numerical methods like Runge-Kutta.</p>
+<h3 id="resonance">Resonance:</h3>
+<p>Resonance occurs when the driving frequency <span class="arithmatex">\(\omega\)</span> matches the natural frequency of the system <span class="arithmatex">\(\omega_0\)</span>. At resonance, the system's amplitude increases significantly, and the energy transfer is maximized. The resonance condition is:</p>
+<div class="arithmatex">\[
+\omega = \omega_0
+\]</div>
+<p>However, in a damped system, perfect resonance is modified by the damping coefficient <span class="arithmatex">\(\beta\)</span>, which affects how sharply the resonance occurs.</p>
+<h3 id="energy-in-the-system">Energy in the System:</h3>
+<p>The energy of the system at any time can be found using the kinetic and potential energy of the pendulum. For the driven pendulum, this energy fluctuates due to the driving force and damping, leading to complex behaviors like energy dissipation and accumulation.</p>
+<h2 id="2-analysis-of-dynamics">2. Analysis of Dynamics:</h2>
+<p>To investigate the influence of parameters such as damping, driving amplitude, and frequency, you’ll need to explore how each of these factors affects the pendulum's motion. Here are some key aspects to explore:</p>
 <ul>
-<li><strong>Damping coefficient ($ \gamma $):</strong> Higher damping reduces oscillation amplitude and shifts resonance frequency.</li>
-<li><strong>Driving amplitude ($ F_0 $):</strong> Increases oscillation amplitude; beyond a threshold, chaotic motion emerges.</li>
-<li><strong>Driving frequency ($ \omega $):</strong> Controls resonance and synchronization behavior.</li>
+<li>
+<p><strong>Damping Coefficient</strong> (<span class="arithmatex">\(\beta\)</span>): As <span class="arithmatex">\(\beta\)</span> increases, the pendulum will lose energy more quickly, leading to a quicker decay of oscillations. A high damping coefficient may suppress oscillations altogether.</p>
+</li>
+<li>
+<p><strong>Driving Amplitude</strong> (<span class="arithmatex">\(A\)</span>): A higher amplitude of the external force can lead to larger oscillations, especially near resonance.</p>
+</li>
+<li>
+<p><strong>Driving Frequency</strong> (<span class="arithmatex">\(\omega\)</span>): Varying <span class="arithmatex">\(\omega\)</span> will allow you to explore how the pendulum transitions from regular oscillations to chaotic motion. Resonance is especially important here.</p>
+</li>
+<li>
+<p><strong>Transition to Chaos</strong>: At certain values of the damping coefficient and driving frequency, the pendulum can exhibit chaotic behavior, characterized by irregular motion. This transition can be explored by plotting phase diagrams and using tools like Poincaré sections.</p>
+</li>
 </ul>
-<h3 id="chaotic-motion"><strong>Chaotic Motion:</strong></h3>
-<p>For high driving forces and low damping, the system can exhibit chaotic behavior, meaning small changes in initial conditions lead to unpredictable long-term behavior.</p>
-<hr/>
-<h2 id="3-practical-applications"><strong>3. Practical Applications</strong></h2>
+<h2 id="3-practical-applications">3. Practical Applications:</h2>
+<p>The forced damped pendulum model can be applied to various real-world scenarios, including:</p>
 <ul>
-<li><strong>Energy Harvesting:</strong> Used in devices that convert mechanical vibrations into electrical energy.</li>
-<li><strong>Suspension Bridges:</strong> Engineering designs must consider resonance to prevent catastrophic oscillations (e.g., Tacoma Narrows Bridge).</li>
-<li><strong>Electrical Circuits:</strong> Analogous to driven RLC circuits where voltage replaces angular displacement.</li>
+<li>
+<p><strong>Energy Harvesting</strong>: Devices that convert mechanical vibrations into electrical energy often utilize oscillating systems that can be modeled by forced damped pendulums.</p>
+</li>
+<li>
+<p><strong>Suspension Bridges</strong>: These structures experience periodic driving forces due to wind or traffic, and understanding their resonance helps in designing bridges that avoid dangerous oscillations.</p>
+</li>
+<li>
+<p><strong>Oscillating Circuits</strong>: Driven RLC circuits are analogous to forced damped pendulums and exhibit similar resonance behaviors.</p>
+</li>
 </ul>
-<hr/>
-<h2 id="4-implementation-in-python"><strong>4. Implementation in Python</strong></h2>
-<h3 id="numerical-simulation-using-runge-kutta-method"><strong>Numerical Simulation using Runge-Kutta Method</strong></h3>
+<h2 id="4-implementation-simulations">4. Implementation (Simulations):</h2>
+<p>To simulate the dynamics of the forced damped pendulum, you can use Python and numerical techniques like the Runge-Kutta method. Here’s a basic outline of how you can approach the implementation:</p>
+<h3 id="numerical-solution">Numerical Solution:</h3>
+<p>Using Python, you can use the <code>scipy.integrate.solve_ivp</code> method to solve the differential equation numerically. Here's a sample code snippet to get you started:</p>
 <pre><code class="language-python">import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
-# Parameters
-g = 9.81  # Gravity (m/s^2)
-L = 1.0   # Length of pendulum (m)
-gamma = 0.2  # Damping coefficient
-F0 = 1.2  # Driving force amplitude
-omega = 2.0  # Driving frequency
+# Constants
+g = 9.81  # gravity
+L = 1.0   # length of pendulum
+omega_0 = np.sqrt(g / L)  # natural frequency
+beta = 0.1  # damping coefficient
+A = 0.5    # amplitude of driving force
+omega = 1.0  # driving frequency
 
-# Equation of motion
+# Differential equation for the forced damped pendulum
 def pendulum(t, y):
-    theta, omega_ = y
-    dydt = [omega_, -gamma * omega_ - (g/L) * np.sin(theta) + F0 * np.cos(omega * t)]
+    theta, omega_dot = y
+    dydt = [omega_dot, -2*beta*omega_dot - omega_0**2 * np.sin(theta) + A * np.cos(omega * t)]
     return dydt
 
-# Solve using Runge-Kutta method
-Tmax = 50
-initial_conditions = [0.1, 0]  # Small initial displacement
-sol = solve_ivp(pendulum, [0, Tmax], initial_conditions, t_eval=np.linspace(0, Tmax, 1000))
+# Initial conditions: [initial angle, initial angular velocity]
+y0 = [0.1, 0.0]
 
-# Plot Results
-plt.figure(figsize=(10, 5))
-plt.plot(sol.t, sol.y[0])
-plt.xlabel("Time (s)")
-plt.ylabel("Angle (rad)")
-plt.title("Forced Damped Pendulum Motion")
-plt.grid()
+# Time vector
+t_span = (0, 100)
+t_eval = np.linspace(*t_span, 1000)
+
+# Solve the differential equation
+solution = solve_ivp(pendulum, t_span, y0, t_eval=t_eval)
+
+# Plot the results
+plt.plot(solution.t, solution.y[0])
+plt.xlabel('Time (s)')
+plt.ylabel('Angular Displacement (radians)')
+plt.title('Forced Damped Pendulum Motion')
+plt.grid(True)
 plt.show()
 </code></pre>
-<hr/>
-<h3 id="phase-portrait-poincare-section"><strong>Phase Portrait &amp; Poincaré Section</strong></h3>
-<p>To analyze chaos, we plot the phase space:</p>
-<pre><code class="language-python">plt.figure(figsize=(8, 6))
-plt.plot(sol.y[0], sol.y[1], lw=0.5)
-plt.xlabel("Theta (rad)")
-plt.ylabel("Angular Velocity (rad/s)")
-plt.title("Phase Portrait")
-plt.grid()
-plt.show()
-</code></pre>
-<p>For the Poincaré section (stroboscopic map at multiples of the driving period):</p>
-<pre><code class="language-python">time_mod = sol.t % (2 * np.pi / omega)
-poincare_indices = np.where(time_mod &lt; 0.01)[0]
-plt.scatter(sol.y[0][poincare_indices], sol.y[1][poincare_indices], s=10)
-plt.xlabel("Theta (rad)")
-plt.ylabel("Angular Velocity (rad/s)")
-plt.title("Poincaré Section")
-plt.grid()
-plt.show()
-</code></pre>
-<hr/>
-<h2 id="5-deliverables-summary"><strong>5. Deliverables Summary</strong></h2>
-<ol>
-<li><strong>Markdown document with Python simulations</strong></li>
-<li><strong>Mathematical derivations of small-angle solutions</strong></li>
-<li><strong>Graphical representations:</strong></li>
-<li>Time evolution of motion</li>
-<li>Phase portrait</li>
-<li>Poincaré section</li>
-<li><strong>Discussion of limitations and potential extensions:</strong></li>
-<li>Nonlinear damping effects</li>
-<li>Stochastic forcing (random perturbations)</li>
-<li>Multi-degree-of-freedom pendulum interactions</li>
-</ol>
-<hr/>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">

@@ -132,3 +132,60 @@ ax.legend()
 
 plt.show()
 ```
+
+## Explanation of the Code
+
+**Constants:**  
+We define the gravitational constant, the masses and radii of celestial bodies (Earth, Mars, Jupiter, and the Sun).
+
+**Functions:**
+
+- `escape_velocity`: Calculates the escape velocity.
+- `first_cosmic_velocity`: Calculates the first cosmic velocity.
+- `third_cosmic_velocity`: Calculates the third cosmic velocity.
+
+**Calculations:**  
+The escape and cosmic velocities are calculated for Earth, Mars, and Jupiter.  
+The third cosmic velocity is calculated for the Sun (escape velocity from the solar system).
+
+**Plotting:**  
+The results are plotted as a bar chart with different colors representing each velocity type.
+
+---
+
+## Graphical Representation
+
+- **X-axis:** Represents different celestial bodies (Earth, Mars, Jupiter, and the Sun).
+- **Y-axis:** Represents the velocity values in meters per second (m/s).
+- **Bars:**
+  - One for escape velocity
+  - One for the first cosmic velocity
+  - One for the third cosmic velocity (only for the Sun)
+
+---
+
+## Output (Graph)
+
+The output will show a bar chart that compares:
+
+- Escape velocities for Earth, Mars, and Jupiter
+- First cosmic velocities for Earth, Mars, and Jupiter
+- Third cosmic velocity for the Sun
+
+This chart provides a visual comparison of how these critical velocities vary across different celestial bodies.
+
+---
+
+## Importance in Space Exploration
+
+- **Escape Velocity:**  
+  Determines how fast an object must travel to leave the gravitational pull of a planet. Crucial for launching satellites and spacecraft from any planet.
+
+- **First Cosmic Velocity:**  
+  Defines the minimum speed needed for a stable orbit around a celestial body. Important for satellite deployment and space station operations.
+
+- **Third Cosmic Velocity:**  
+  Describes the speed required to escape the gravitational influence of the entire solar system. Essential for planning interstellar missions.
+
+---
+

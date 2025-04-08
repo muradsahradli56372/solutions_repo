@@ -102,6 +102,7 @@ plt.grid(True)
 plt.show()
 ```
 
+![alt text](https://file%2B.vscode-resource.vscode-cdn.net/Users/Shared/solutions_repo/docs/1%20Physics/1%20Mechanics/Screenshot%202025-04-08%20at%2010.53.35.png?version%3D1744095400052)
 ## 5. Discussion
 
 In the analysis of the forced damped pendulum, several important aspects of the system’s behavior have been highlighted. The transition from regular oscillations to chaotic motion as parameters such as damping coefficient, driving frequency, and amplitude are varied is a key observation. The damping coefficient $\beta$ plays a crucial role in how the system's energy is dissipated, with higher damping values leading to rapid energy loss and less pronounced oscillations. This is particularly important in real-world systems, where too much damping can prevent the system from reaching resonance, while insufficient damping can lead to excessive oscillations that may be damaging.

@@ -133,6 +133,8 @@ ax.legend()
 plt.show()
 ```
 
+ ![alt text](cosmic.png)
+
 ## Explanation of the Code
 
 **Constants:**  

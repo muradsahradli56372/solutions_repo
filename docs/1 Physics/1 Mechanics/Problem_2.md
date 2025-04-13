@@ -102,7 +102,7 @@ plt.grid(True)
 plt.show()
 ```
 
-![alt text](https://file%2B.vscode-resource.vscode-cdn.net/Users/Shared/solutions_repo/docs/1%20Physics/1%20Mechanics/Screenshot%202025-04-08%20at%2010.53.35.png?version%3D1744097149214)
+ ![alt text](diagram.png)
 
 ## 5. Discussion
 

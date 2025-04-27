@@ -62,68 +62,85 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
 # Constants
-G = 6.67430e-11  # Gravitational constant (m^3 kg^-1 s^-2)
-M_earth = 5.972e24  # Mass of Earth (kg)
-R_earth = 6.371e6  # Radius of Earth (m)
+G = 6.67430e-11  # gravitational constant (m^3 kg^-1 s^-2)
+M_earth = 5.972e24  # mass of Earth (kg)
+R_earth = 6.371e6  # radius of Earth (m)
 
-# Initial conditions: position and velocity (in polar coordinates)
-initial_altitude = 200000  # 200 km altitude above Earth's surface
-initial_velocity = 10000  # Initial velocity in m/s
-initial_angle = 0  # Angle of release (horizontal)
+# Define gravitational acceleration
+def gravity_accel(x, y):
+    r = np.sqrt(x**2 + y**2)
+    a = -G * M_earth / r**3
+    return a * x, a * y
 
-# Define the equations of motion
-def equations_of_motion(t, y):
-    r, theta, r_dot, theta_dot = y  # r: radial distance, theta: angle, r_dot: radial velocity, theta_dot: angular velocity
-    r_double_dot = -G * M_earth / r**2  # Radial acceleration due to gravity
-    return [r_dot, theta_dot, r_double_dot, 0]  # The angular velocity is constant in this simplified model
+# Define the system of differential equations
+def equations(t, state):
+    x, y, vx, vy = state
+    ax, ay = gravity_accel(x, y)
+    return [vx, vy, ax, ay]
 
-# Initial state [r, theta, r_dot, theta_dot]
-initial_state = [R_earth + initial_altitude, initial_angle, initial_velocity, 0]
+# Simulation function
+def simulate_payload(v0, angle_deg):
+    # Initial conditions
+    angle_rad = np.deg2rad(angle_deg)
+    x0 = R_earth  # Start from Earth's surface at x = R_earth
+    y0 = 0
+    vx0 = v0 * np.cos(angle_rad)
+    vy0 = v0 * np.sin(angle_rad)
+    initial_state = [x0, y0, vx0, vy0]
 
-# Time span for the simulation (0 to 2 hours)
-t_span = (0, 7200)  # 7200 seconds (2 hours)
-t_eval = np.linspace(*t_span, 10000)
+    # Time span for the simulation
+    t_span = (0, 20000)  # seconds
+    t_eval = np.linspace(*t_span, 5000)
 
-# Solve the differential equations
-solution = solve_ivp(equations_of_motion, t_span, initial_state, t_eval=t_eval)
+    # Solve the equations
+    solution = solve_ivp(equations, t_span, initial_state, t_eval=t_eval, rtol=1e-8)
 
-# Extract results
-r = solution.y[0]
-theta = solution.y[1]
+    # Extract the results
+    x = solution.y[0]
+    y = solution.y[1]
 
-# Convert polar coordinates to Cartesian for plotting
-x = r * np.cos(theta)
-y = r * np.sin(theta)
+    # Plot the trajectory
+    plt.figure(figsize=(8, 8))
+    plt.plot(x, y, label="Payload Trajectory")
+    earth = plt.Circle((0, 0), R_earth, color='blue', label="Earth", alpha=0.5)
+    plt.gca().add_artist(earth)
+    plt.xlabel('X Position (m)')
+    plt.ylabel('Y Position (m)')
+    plt.title(f"Payload Trajectory (v0 = {v0} m/s, angle = {angle_deg}°)")
+    plt.axis('equal')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
-# Plot the trajectory
-plt.figure(figsize=(8, 6))
-plt.plot(x, y, label="Payload Trajectory")
-plt.scatter(0, 0, color="red", label="Earth Center", s=100)  # Earth center
-plt.title('Trajectory of a Freely Released Payload Near Earth')
-plt.xlabel('X (m)')
-plt.ylabel('Y (m)')
-plt.grid(True)
-plt.legend()
-plt.show()
+# Example usage
+simulate_payload(v0=8000, angle_deg=0)  # Low orbit-like speed
+simulate_payload(v0=11200, angle_deg=45)  # Near escape velocity with angle
+simulate_payload(v0=5000, angle_deg=90)  # Just upwards launch
+
 ```
+
+
+![alt text](<download (2).png>)
 
 ## Explanation of the Code
 
-**Constants:**  
-We define the gravitational constant, the mass of the Earth, and its radius.
+This Python script simulates the trajectory of a payload released near Earth with a given initial velocity and angle. It models the motion considering Earth's gravity and visualizes the payload's path.
 
-**Initial Conditions:**  
-The payload is released at an altitude of 200 km with an initial horizontal velocity of 10,000 m/s.
+## Key Points:
 
-**Equations of Motion:**  
-The system of equations governing the motion of the payload is derived from Newton’s Law of Gravitation. We solve for the radial distance and angular velocity.
+The initial conditions are set by velocity (v0) and launch angle (theta).
 
-**Numerical Solution:**  
-We use `solve_ivp` from SciPy to numerically integrate the equations of motion over a time span of 2 hours.
+Gravitational force is taken into account based on Newton's law of gravitation.
 
-**Visualization:**  
-The trajectory is plotted in Cartesian coordinates to show the path of the payload.
+The Earth is represented as a circle on the plot.
 
+The payload's trajectory is simulated over time and plotted.
+
+## Usage:
+
+Modify the v0 and theta values to observe different types of trajectories (orbital, escape, fall back).
+
+Use this to understand how initial conditions affect motion near a planet.
 ---
 
 ## Graphical Representation

@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 1 - Physics and Mathematics</title>
+<title>Problem 1: Exploring the Central Limit Theorem (CLT) through Simulations - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 1";
+        var mkdocs_page_name = "Problem 1: Exploring the Central Limit Theorem (CLT) through Simulations";
         var mkdocs_page_input_path = "1 Physics/6 Statistics/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -76,14 +76,52 @@
 </li>
 <li class="toctree-l1"><a class="reference internal">5 Circuits</a>
 <ul>
-<li class="toctree-l2"><a class="reference internal" href="../../5%20Circuits/Problem_1/">Problem 1</a>
+<li class="toctree-l2"><a class="reference internal" href="../../5%20Circuits/Problem_1/">Problem 1: Equivalent Resistance Using Graph Theory</a>
 </li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal current">6 Statistics</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1: Exploring the Central Limit Theorem (CLT) through Simulations</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#motivation">Motivation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#1-simulation-plan">1. Simulation Plan</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#population-distributions-used">Population Distributions Used</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#2-python-code-for-simulation">2. Python Code for Simulation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#3-visual-results-and-interpretation">3. Visual Results and Interpretation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#key-observations">Key Observations</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#4-insights-from-parameter-exploration">4. Insights from Parameter Exploration</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#41-sample-size-n">4.1 Sample Size (\(n\))</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#42-shape-of-the-population-distribution">4.2 Shape of the Population Distribution</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#43-population-variance">4.3 Population Variance</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#44-summary-table">4.4 Summary Table</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#5-practical-implications-of-clt">5. Practical Implications of CLT</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#51-quality-control">5.1 Quality Control</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#52-finance-and-risk-modeling">5.2 Finance and Risk Modeling</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#53-statistical-inference">5.3 Statistical Inference</a>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
@@ -163,7 +201,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">6 Statistics</li>
-<li class="breadcrumb-item active">Problem 1</li>
+<li class="breadcrumb-item active">Problem 1: Exploring the Central Limit Theorem (CLT) through Simulations</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,11 +209,154 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-1">Problem 1</h1>
+<h1 id="problem-1-exploring-the-central-limit-theorem-clt-through-simulations">Problem 1: Exploring the Central Limit Theorem (CLT) through Simulations</h1>
+<h2 id="motivation">Motivation</h2>
+<p>The Central Limit Theorem (CLT) is a foundational principle in statistics. It states that:</p>
+<blockquote>
+<p>Regardless of the population distribution, the distribution of the sample mean tends toward a normal distribution as the sample size increases.</p>
+</blockquote>
+<p>This concept is critical in many statistical methods such as confidence intervals, hypothesis testing, and quality control. Here, we explore CLT using simulations on different population distributions.</p>
+<hr/>
+<h2 id="1-simulation-plan">1. Simulation Plan</h2>
+<h3 id="population-distributions-used">Population Distributions Used</h3>
+<ul>
+<li><strong>Uniform Distribution</strong> <span class="arithmatex">\(U(0, 1)\)</span><br/>
+<img alt="alt text" src="../output%20%285%29-1.png"/></li>
+<li><strong>Exponential Distribution</strong> <span class="arithmatex">\(\text{Exp}(\lambda=1)\)</span><br/>
+<img alt="alt text" src="../output%20%284%29-1.png"/></li>
+<li><strong>Binomial Distribution</strong> <span class="arithmatex">\(B(n=10, p=0.5)\)</span><br/>
+<img alt="alt text" src="../output%20%286%29-1.png"/></li>
+</ul>
+<p>For each, we:</p>
+<ol>
+<li>Generate a large synthetic population dataset,</li>
+<li>Randomly sample <code>n</code> elements (for <span class="arithmatex">\(n = 5, 10, 30, 50\)</span>),</li>
+<li>Repeat the sampling process 1000 times,</li>
+<li>Calculate the <strong>sample mean</strong> in each trial,</li>
+<li>Plot the <strong>sampling distribution</strong> of those means.</li>
+</ol>
+<hr/>
+<h2 id="2-python-code-for-simulation">2. Python Code for Simulation</h2>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.set(style="whitegrid")
+np.random.seed(42)
+
+distributions = {
+    "Uniform": lambda size: np.random.uniform(0, 1, size),
+    "Exponential": lambda size: np.random.exponential(1.0, size),
+    "Binomial": lambda size: np.random.binomial(n=10, p=0.5, size=size)
+}
+
+sample_sizes = [5, 10, 30, 50]
+num_samples = 1000
+
+for dist_name, dist_func in distributions.items():
+    plt.figure(figsize=(14, 10))
+    for i, n in enumerate(sample_sizes, 1):
+        means = [np.mean(dist_func(n)) for _ in range(num_samples)]
+        plt.subplot(2, 2, i)
+        sns.histplot(means, bins=30, kde=True, color='skyblue')
+        plt.title(f"{dist_name} Distribution - Sample size: {n}")
+        plt.xlabel("Sample Mean")
+        plt.ylabel("Frequency")
+    plt.suptitle(f"Sampling Distribution of the Mean — {dist_name}", fontsize=16)
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
+    plt.savefig(f"clt_{dist_name.lower()}.png", dpi=150)
+    plt.show()
+</code></pre>
+<h2 id="3-visual-results-and-interpretation">3. Visual Results and Interpretation</h2>
+<p>In this simulation, we explored how the distribution of sample means changes as the sample size increases. Three types of population distributions were used:</p>
+<ul>
+<li>Uniform Distribution <span class="arithmatex">\(U(0,1)\)</span></li>
+<li>Exponential Distribution <span class="arithmatex">\(\text{Exp}(1)\)</span></li>
+<li>Binomial Distribution <span class="arithmatex">\(B(n=10, p=0.5)\)</span></li>
+</ul>
+<p>For each, we took random samples of size <span class="arithmatex">\(n = 5, 10, 30, 50\)</span>, repeated the sampling process 1000 times, and computed the sample mean each time.</p>
+<h3 id="key-observations">Key Observations</h3>
+<ul>
+<li><strong>Uniform Distribution</strong>: Initially flat and symmetric. As <span class="arithmatex">\(n\)</span> increases, the sample mean distribution becomes increasingly bell-shaped.</li>
+<li><strong>Exponential Distribution</strong>: Originally skewed to the right. Small sample sizes retain the skewness, but as <span class="arithmatex">\(n\)</span> grows, the distribution of sample means becomes symmetric and normal-like.</li>
+<li><strong>Binomial Distribution</strong>: Discrete and symmetric (when <span class="arithmatex">\(p=0.5\)</span>). Sampling means smoothen out the discreteness, resulting in an approximate normal distribution for larger <span class="arithmatex">\(n\)</span>.</li>
+</ul>
+<p>These behaviors demonstrate the Central Limit Theorem in action — regardless of the population shape, the distribution of the sample mean tends toward normality as sample size increases.</p>
+<hr/>
+<h2 id="4-insights-from-parameter-exploration">4. Insights from Parameter Exploration</h2>
+<p>The simulation allowed us to explore how various parameters influence the convergence toward a normal distribution.</p>
+<h3 id="41-sample-size-n">4.1 Sample Size (<span class="arithmatex">\(n\)</span>)</h3>
+<ul>
+<li><strong>Smaller <span class="arithmatex">\(n\)</span></strong>: Sampling distributions resemble the original population shape.</li>
+<li><strong>Larger <span class="arithmatex">\(n\)</span></strong>: The Central Limit Theorem dominates, and the distribution of sample means becomes nearly normal.</li>
+</ul>
+<h3 id="42-shape-of-the-population-distribution">4.2 Shape of the Population Distribution</h3>
+<ul>
+<li><strong>Symmetric distributions</strong> (like uniform) converge more quickly to a normal distribution.</li>
+<li><strong>Skewed or heavy-tailed distributions</strong> (like exponential) require larger sample sizes for normal-like behavior to emerge.</li>
+</ul>
+<h3 id="43-population-variance">4.3 Population Variance</h3>
+<ul>
+<li>Affects the <strong>spread</strong> of the sampling distribution.</li>
+<li>The standard deviation of the sample mean is given by:</li>
+</ul>
+<p>$$
+  \sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}
+  $$</p>
+<ul>
+<li>So, increasing the sample size reduces the variability of the sample mean, making estimates more precise.</li>
+</ul>
+<h3 id="44-summary-table">4.4 Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Effect on Sampling Distribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sample Size (<span class="arithmatex">\(n\)</span>)</td>
+<td>Larger <span class="arithmatex">\(n\)</span> → smoother, more normal, less spread</td>
+</tr>
+<tr>
+<td>Skewness</td>
+<td>More skew → slower convergence to normality</td>
+</tr>
+<tr>
+<td>Variance (<span class="arithmatex">\(\sigma^2\)</span>)</td>
+<td>Higher variance → wider sampling distribution</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="5-practical-implications-of-clt">5. Practical Implications of CLT</h2>
+<p>The Central Limit Theorem underpins many real-world applications. Here are three areas where its impact is significant:</p>
+<h3 id="51-quality-control">5.1 Quality Control</h3>
+<p>In manufacturing, measurements (e.g., lengths, weights) from a process may vary. Even if individual measurements are not normally distributed, the <strong>average of a sample</strong> of these measurements will be approximately normal, allowing for:</p>
+<ul>
+<li>Control chart construction</li>
+<li>Defect detection using statistical thresholds</li>
+</ul>
+<h3 id="52-finance-and-risk-modeling">5.2 Finance and Risk Modeling</h3>
+<p>Financial returns may have non-normal characteristics (e.g., skewness, kurtosis), but <strong>averaging returns</strong> over time or across portfolios often leads to normally distributed values. This assumption allows:</p>
+<ul>
+<li>Reliable estimation of expected returns</li>
+<li>Risk measurement tools like Value at Risk (VaR)</li>
+</ul>
+<h3 id="53-statistical-inference">5.3 Statistical Inference</h3>
+<p>Most parametric tests (e.g., <span class="arithmatex">\(t\)</span>-test, ANOVA) assume normality of the sampling distribution of the mean. CLT justifies this assumption, making such tests valid when:</p>
+<ul>
+<li>The sample size is sufficiently large (typically <span class="arithmatex">\(n \geq 30\)</span>)</li>
+<li>The data are independently and identically distributed (i.i.d.)</li>
+</ul>
+<hr/>
+<p><strong>Conclusion</strong>:<br/>
+Through simulation, we observed the power of the Central Limit Theorem. Regardless of how skewed or irregular the original data may be, the average of enough samples behaves in a predictable and structured way — it becomes approximately normal. This principle enables confidence in statistical modeling, even in uncertain and complex data environments.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
-<a class="btn btn-neutral float-left" href="../../5%20Circuits/Problem_1/" title="Problem 1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+<a class="btn btn-neutral float-left" href="../../5%20Circuits/Problem_1/" title="Problem 1: Equivalent Resistance Using Graph Theory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
 <a class="btn btn-neutral float-right" href="../Problem_2/" title="Problem 2">Next <span class="icon icon-circle-arrow-right"></span></a>
 </div>
 <hr/>

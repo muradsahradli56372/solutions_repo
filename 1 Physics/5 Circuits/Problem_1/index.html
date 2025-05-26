@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 1 - Physics and Mathematics</title>
+<title>Problem 1: Equivalent Resistance Using Graph Theory - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 1";
+        var mkdocs_page_name = "Problem 1: Equivalent Resistance Using Graph Theory";
         var mkdocs_page_input_path = "1 Physics/5 Circuits/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -76,15 +76,69 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal current">5 Circuits</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1: Equivalent Resistance Using Graph Theory</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#motivation">Motivation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#1-problem-approach-with-graph-theory">1. Problem Approach with Graph Theory</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#11-circuit-as-a-graph">1.1 Circuit as a Graph</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#2-implementation-python-with-networkx">2. Implementation (Python with NetworkX)</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#21-kirchhoff-based-resistance-solver">2.1 Kirchhoff-Based Resistance Solver</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#22-example-graph-mixed-series-and-parallel-configuration">2.2 Example Graph: Mixed Series and Parallel Configuration</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-circuit-graph">Create a circuit graph</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#add-resistors-as-edges-with-conductance-attributes">Add resistors as edges with conductance attributes</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#compute-equivalent-resistance-between-nodes-0-and-2">Compute equivalent resistance between nodes 0 and 2</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#3-detailed-example-explanation">3. Detailed Example Explanation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#4-advantages-of-graph-theory-in-circuit-analysis">4. Advantages of Graph Theory in Circuit Analysis</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#generalization">🔍 Generalization</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#automation-scalability">⚙️ Automation &amp; Scalability</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#educational-insight">🧠 Educational Insight</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#reusability-modularity">🔄 Reusability &amp; Modularity</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#5-future-extensions-and-project-ideas">5. Future Extensions and Project Ideas</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#1-graphical-user-interface-gui">🖥️ 1. Graphical User Interface (GUI)</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2-visual-circuit-diagram-generation">🧮 2. Visual Circuit Diagram Generation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#3-support-for-active-components">⚡ 3. Support for Active Components</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#4-frequency-domain-analysis">📡 4. Frequency-Domain Analysis</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#5-spice-integration">🔌 5. SPICE Integration</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#6-step-by-step-reduction-logging">📈 6. Step-by-Step Reduction Logging</a>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal">6 Statistics</a>
 <ul>
-<li class="toctree-l2"><a class="reference internal" href="../../6%20Statistics/Problem_1/">Problem 1</a>
+<li class="toctree-l2"><a class="reference internal" href="../../6%20Statistics/Problem_1/">Problem 1: Exploring the Central Limit Theorem (CLT) through Simulations</a>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../6%20Statistics/Problem_2/">Problem 2</a>
 </li>
@@ -163,7 +217,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">5 Circuits</li>
-<li class="breadcrumb-item active">Problem 1</li>
+<li class="breadcrumb-item active">Problem 1: Equivalent Resistance Using Graph Theory</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,12 +225,165 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-1">Problem 1</h1>
+<h1 id="problem-1-equivalent-resistance-using-graph-theory">Problem 1: Equivalent Resistance Using Graph Theory</h1>
+<h2 id="motivation">Motivation</h2>
+<p>Calculating equivalent resistance is a key task in electrical circuit analysis. For simple networks, series and parallel rules are sufficient. However, for more complex circuits involving nested loops or multiple branches, these rules become tedious.</p>
+<p>Graph theory offers a powerful and flexible solution: circuits can be modeled as <strong>weighted graphs</strong> where:</p>
+<ul>
+<li><strong>Nodes</strong> represent connection points (junctions),</li>
+<li><strong>Edges</strong> represent resistors with weights based on resistance values.</li>
+</ul>
+<p>This method enables algorithmic simplification and automated analysis, particularly useful in large-scale simulations and electrical network design.</p>
+<hr/>
+<h2 id="1-problem-approach-with-graph-theory">1. Problem Approach with Graph Theory</h2>
+<h3 id="11-circuit-as-a-graph">1.1 Circuit as a Graph</h3>
+<ul>
+<li>A circuit is modeled as a graph <span class="arithmatex">\(G(V,E)\)</span>.</li>
+<li>Each edge has an associated resistance <span class="arithmatex">\(R\)</span>, converted to conductance <span class="arithmatex">\(G = 1/R\)</span>.</li>
+<li>We use the <strong>Laplacian matrix</strong> of the graph to solve Kirchhoff’s current law equations.</li>
+</ul>
+<hr/>
+<h2 id="2-implementation-python-with-networkx">2. Implementation (Python with NetworkX)</h2>
+<h3 id="21-kirchhoff-based-resistance-solver">2.1 Kirchhoff-Based Resistance Solver</h3>
+<pre><code class="language-python">import numpy as np
+import networkx as nx
+
+# Function to compute equivalent resistance using graph Laplacian
+def equivalent_resistance(graph, node_a, node_b):
+    G_matrix = nx.laplacian_matrix(graph, weight='conductance').toarray()
+    n = len(G_matrix)
+
+    b = np.zeros(n)
+    b[node_a] = 1
+    b[node_b] = -1
+
+    try:
+        potentials = np.linalg.lstsq(G_matrix, b, rcond=None)[0]
+        current = potentials[node_a] - potentials[node_b]
+        R_eq = 1.0 / current
+        return abs(R_eq)
+    except Exception as e:
+        return f"Error: {e}"
+</code></pre>
+<h2 id="22-example-graph-mixed-series-and-parallel-configuration">2.2 Example Graph: Mixed Series and Parallel Configuration</h2>
+<h3 id="create-a-circuit-graph">Create a circuit graph</h3>
+<p>G = nx.Graph()
+G.add_nodes_from([0, 1, 2])</p>
+<h3 id="add-resistors-as-edges-with-conductance-attributes">Add resistors as edges with conductance attributes</h3>
+<p>G.add_edge(0, 1, resistance=2.0, conductance=1/2.0)
+G.add_edge(1, 2, resistance=3.0, conductance=1/3.0)
+G.add_edge(0, 2, resistance=6.0, conductance=1/6.0)</p>
+<h3 id="compute-equivalent-resistance-between-nodes-0-and-2">Compute equivalent resistance between nodes 0 and 2</h3>
+<p>req = equivalent_resistance(G, 0, 2)
+print(f"Equivalent resistance between node 0 and 2: {req:.3f} Ohm")</p>
+<p>Equivalent resistance between node 0 and 2: 0.367 Ohm</p>
+<h2 id="3-detailed-example-explanation">3. Detailed Example Explanation</h2>
+<p>Let us consider a simple resistive circuit modeled as a graph with three nodes: <strong>0</strong>, <strong>1</strong>, and <strong>2</strong>. The circuit includes the following resistive components:</p>
+<ul>
+<li>A <strong>2 Ω resistor</strong> between nodes <strong>0</strong> and <strong>1</strong></li>
+<li>A <strong>3 Ω resistor</strong> between nodes <strong>1</strong> and <strong>2</strong></li>
+<li>A <strong>6 Ω resistor</strong> directly between nodes <strong>0</strong> and <strong>2</strong></li>
+</ul>
+<p><img alt="alt text" src="../output%20%283%29.png"/></p>
+<p>Visually, this forms a <strong>triangle-shaped circuit</strong>, also known as a <strong>3-node loop or cycle</strong>. In traditional circuit analysis, one would manually analyze each possible series and parallel combination:</p>
+<ul>
+<li>The <strong>path from 0 to 2</strong> can occur either <strong>directly</strong> through the 6 Ω resistor,  </li>
+<li>or <strong>indirectly</strong> via the two resistors in <strong>series</strong>: 0 → 1 → 2, which sums to 2 Ω + 3 Ω = <strong>5 Ω</strong>.</li>
+</ul>
+<p>This makes the problem a combination of <strong>parallel and series</strong> resistor relationships.</p>
+<p>Using <strong>graph theory</strong>, we model the system as follows:</p>
+<ul>
+<li>Each <strong>resistor</strong> becomes an <strong>edge</strong> in an undirected graph.</li>
+<li>The <strong>weight</strong> of each edge is the <strong>conductance</strong> (inverse of resistance): <span class="arithmatex">\(G = \frac{1}{R}\)</span>.</li>
+<li>We construct a <strong>Laplacian matrix</strong> <span class="arithmatex">\(L\)</span> based on the connectivity and weights.</li>
+<li>Kirchhoff’s current law (KCL) is applied implicitly through matrix equations:<br/>
+  $$
+  L \cdot \vec{V} = \vec{b}
+  $$
+  where <span class="arithmatex">\(\vec{b}\)</span> encodes potential differences between the source and destination nodes.</li>
+</ul>
+<p>By solving this system, we obtain the <strong>potential at each node</strong>, and from this, compute the <strong>net current</strong> between the input and output nodes. The <strong>equivalent resistance</strong> is then simply the <strong>inverse of the current</strong>, assuming a 1-volt potential difference was applied.</p>
+<p>This approach abstracts away manual rule application and instead applies consistent, scalable linear algebraic computation.</p>
+<hr/>
+<h2 id="4-advantages-of-graph-theory-in-circuit-analysis">4. Advantages of Graph Theory in Circuit Analysis</h2>
+<p>Graph theory provides a mathematically elegant and computationally scalable method for solving circuit problems, especially when traditional analysis becomes cumbersome.</p>
+<h3 id="generalization">🔍 Generalization</h3>
+<ul>
+<li><strong>Works on any circuit</strong> regardless of complexity, topology, or symmetry.</li>
+<li>Supports <strong>nested combinations</strong> of resistors, even with multiple loops and branches.</li>
+<li>Handles <strong>nontrivial configurations</strong> like bridge networks, mesh circuits, and Wheatstone bridges.</li>
+</ul>
+<h3 id="automation-scalability">⚙️ Automation &amp; Scalability</h3>
+<ul>
+<li>Perfectly suited for implementation in <strong>circuit simulation software</strong>.</li>
+<li>Once the graph is defined, <strong>no need for manual simplification</strong> or error-prone rule tracking.</li>
+<li>Can be combined with optimization tools for <strong>automated component tuning</strong>.</li>
+</ul>
+<h3 id="educational-insight">🧠 Educational Insight</h3>
+<ul>
+<li>Reveals the <strong>deep mathematical structure</strong> of electrical networks.</li>
+<li>Links electrical engineering with <strong>linear algebra</strong>, <strong>spectral graph theory</strong>, and <strong>numerical methods</strong>.</li>
+<li>Encourages algorithmic thinking in solving traditionally “manual” problems.</li>
+</ul>
+<h3 id="reusability-modularity">🔄 Reusability &amp; Modularity</h3>
+<ul>
+<li>Graph-based methods can easily be extended to:</li>
+<li>AC circuits (using complex impedances),</li>
+<li>Controlled sources,</li>
+<li>Power flow models.</li>
+</ul>
+<p>In short, graph theory enables <strong>robust</strong>, <strong>modular</strong>, and <strong>mathematically consistent</strong> treatment of complex circuits.</p>
+<hr/>
+<h2 id="5-future-extensions-and-project-ideas">5. Future Extensions and Project Ideas</h2>
+<p>The basic implementation shown here opens the door to a wide range of practical and educational enhancements. Here are some ideas to extend the project into a fully functional analysis tool:</p>
+<h3 id="1-graphical-user-interface-gui">🖥️ 1. Graphical User Interface (GUI)</h3>
+<ul>
+<li>Allow users to <strong>draw circuits interactively</strong>.</li>
+<li>Real-time updates of equivalent resistance as components are added/removed.</li>
+<li>Frameworks: <code>Tkinter</code>, <code>PyQt</code>, or web-based (<code>Dash</code>, <code>Streamlit</code>).</li>
+</ul>
+<h3 id="2-visual-circuit-diagram-generation">🧮 2. Visual Circuit Diagram Generation</h3>
+<ul>
+<li>Use <code>matplotlib</code>, <code>graphviz</code>, or <code>networkx.draw()</code> to show:</li>
+<li>Nodes as terminals,</li>
+<li>Edges as labeled resistors,</li>
+<li>Node labels and current paths.</li>
+</ul>
+<h3 id="3-support-for-active-components">⚡ 3. Support for Active Components</h3>
+<ul>
+<li>Extend to circuits containing:</li>
+<li><strong>Voltage sources</strong> (V),</li>
+<li><strong>Current sources</strong> (I),</li>
+<li><strong>Dependent sources</strong>.</li>
+<li>Use <strong>Modified Nodal Analysis (MNA)</strong> for full support.</li>
+</ul>
+<h3 id="4-frequency-domain-analysis">📡 4. Frequency-Domain Analysis</h3>
+<ul>
+<li>Add <strong>complex impedance</strong> handling:</li>
+<li>Capacitors: <span class="arithmatex">\(Z_C = \frac{1}{j\omega C}\)</span></li>
+<li>Inductors: <span class="arithmatex">\(Z_L = j\omega L\)</span></li>
+<li>Enables full AC analysis (phasor domain).</li>
+</ul>
+<h3 id="5-spice-integration">🔌 5. SPICE Integration</h3>
+<ul>
+<li>Export graph-defined circuits into <strong>SPICE netlists</strong>.</li>
+<li>Analyze the same circuits using industry-standard simulation tools.</li>
+</ul>
+<h3 id="6-step-by-step-reduction-logging">📈 6. Step-by-Step Reduction Logging</h3>
+<ul>
+<li>Print or visualize how:</li>
+<li>Series resistors are combined,</li>
+<li>Parallel resistors are merged,</li>
+<li>Nodes collapse as simplifications are applied.</li>
+<li>Great for <strong>educational feedback</strong> and <strong>debugging complex reductions</strong>.</li>
+</ul>
+<hr/>
+<p>By implementing these extensions, the project can grow from a basic tool into a powerful, scalable framework for <strong>modern circuit analysis</strong>, integrating concepts from <strong>physics</strong>, <strong>computer science</strong>, and <strong>electrical engineering</strong>.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
 <a class="btn btn-neutral float-left" href="../../4%20Electromagnetism/Problem_1/" title="Problem 1: Simulating the Effects of the Lorentz Force"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-<a class="btn btn-neutral float-right" href="../../6%20Statistics/Problem_1/" title="Problem 1">Next <span class="icon icon-circle-arrow-right"></span></a>
+<a class="btn btn-neutral float-right" href="../../6%20Statistics/Problem_1/" title="Problem 1: Exploring the Central Limit Theorem (CLT) through Simulations">Next <span class="icon icon-circle-arrow-right"></span></a>
 </div>
 <hr/>
 <div role="contentinfo">

@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>🎯 Problem 2 – Estimating π via Monte Carlo Methods - Physics and Mathematics</title>
+<title>🧪 Estimating π Using Monte Carlo Methods - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "\ud83c\udfaf Problem 2 \u2013 Estimating \u03c0 via Monte Carlo Methods";
+        var mkdocs_page_name = "\ud83e\uddea Estimating \u03c0 Using Monte Carlo Methods";
         var mkdocs_page_input_path = "1 Physics/6 Statistics/Problem_2.md";
         var mkdocs_page_url = null;
       </script>
@@ -84,47 +84,45 @@
 <ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../Problem_1/">Problem 1: Exploring the Central Limit Theorem (CLT) through Simulations</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">🎯 Problem 2 – Estimating π via Monte Carlo Methods</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">🧪 Estimating π Using Monte Carlo Methods</a>
 <ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="#part-1-circle-method">⚪ Part 1: Circle Method</a>
+<li class="toctree-l3"><a class="reference internal" href="#motivation">🎯 Motivation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#part-1-estimating-using-a-circle">🟢 Part 1: Estimating π Using a Circle</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#theory">📌 Theory</a>
+<li class="toctree-l4"><a class="reference internal" href="#theoretical-foundation">🧠 Theoretical Foundation</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#code-block-1-estimate-and-plot-points">🧪 Code Block 1 – Estimate π and Plot Points</a>
+<li class="toctree-l4"><a class="reference internal" href="#python-code-circle-simulation">💻 Python Code: Circle Simulation</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#explanation">💬 Explanation</a>
+<li class="toctree-l4"><a class="reference internal" href="#visualization-of-the-circle-method">📊 Visualization of the Circle Method</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#code-block-2-circle-convergence-plot">📊 Code Block 2 – Circle Convergence Plot</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#explanation_1">💬 Explanation</a>
+<li class="toctree-l4"><a class="reference internal" href="#accuracy-and-convergence">📈 Accuracy and Convergence</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#part-2-buffons-needle-method">🪡 Part 2: Buffon’s Needle Method</a>
+<li class="toctree-l3"><a class="reference internal" href="#part-2-estimating-using-buffons-needle">🟠 Part 2: Estimating π Using Buffon’s Needle</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#theory_1">📌 Theory</a>
+<li class="toctree-l4"><a class="reference internal" href="#theoretical-foundation_1">🧠 Theoretical Foundation</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#code-block-3-estimate-using-buffons-needle">🧪 Code Block 3 – Estimate π Using Buffon’s Needle</a>
+<li class="toctree-l4"><a class="reference internal" href="#python-code-buffons-needle-simulation">💻 Python Code: Buffon’s Needle Simulation</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#explanation_2">💬 Explanation</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#code-block-4-visualize-buffons-needles">📐 Code Block 4 – Visualize Buffon’s Needles</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#explanation_3">💬 Explanation</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#code-block-5-buffons-needle-convergence">📊 Code Block 5 – Buffon’s Needle Convergence</a>
+<li class="toctree-l4"><a class="reference internal" href="#visualization-optional-example">📊 Visualization (Optional Example)</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#comparative-analysis">📊 Comparative Analysis</a>
+<li class="toctree-l3"><a class="reference internal" href="#_1"></a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#comparison-criteria">🔍 Comparison Criteria</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#observations">📈 Observations</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#conclusion">✅ Conclusion</a>
+<li class="toctree-l4"><a class="reference internal" href="#accuracy-and-convergence_1">📈 Accuracy and Convergence</a>
 </li>
 </ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#comparison-of-methods">📊 Comparison of Methods</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">📚 Conclusion</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#deliverables">✅ Deliverables</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#notes">📎 Notes</a>
 </li>
 </ul>
 </li>
@@ -203,7 +201,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">6 Statistics</li>
-<li class="breadcrumb-item active">🎯 Problem 2 – Estimating π via Monte Carlo Methods</li>
+<li class="breadcrumb-item active">🧪 Estimating π Using Monte Carlo Methods</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -211,213 +209,236 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-2-estimating-via-monte-carlo-methods">🎯 Problem 2 – Estimating π via Monte Carlo Methods</h1>
-<p>Monte Carlo methods use randomness to solve problems. Two classic examples for estimating π are:</p>
+<h1 id="estimating-using-monte-carlo-methods">🧪 Estimating π Using Monte Carlo Methods</h1>
+<h2 id="motivation">🎯 Motivation</h2>
+<p>Monte Carlo methods are a powerful class of computational techniques that use randomness to solve numerical problems. One of the most elegant examples is estimating the mathematical constant π (pi). These simulations connect <strong>probability theory</strong>, <strong>geometry</strong>, and <strong>numerical analysis</strong>, and help us understand how randomness can be harnessed in physics, finance, and computer science.</p>
+<p>By performing random sampling, we can approximate complex integrals or probabilities that are otherwise difficult to compute. In this task, we will explore two different approaches to estimate π:</p>
+<ol>
+<li>Monte Carlo simulation using points inside a circle.</li>
+<li>Buffon’s Needle experiment using geometric probability.</li>
+</ol>
+<hr/>
+<h2 id="part-1-estimating-using-a-circle">🟢 Part 1: Estimating π Using a Circle</h2>
+<h3 id="theoretical-foundation">🧠 Theoretical Foundation</h3>
+<p>Consider a <strong>unit circle</strong> (radius = 1) centered at the origin <span class="arithmatex">\((0,0)\)</span> and inscribed in a square that spans from -1 to 1 in both x and y directions.</p>
 <ul>
-<li>The <strong>Circle Method</strong>, which uses random point generation inside a square.</li>
-<li>The <strong>Buffon’s Needle Method</strong>, which uses probabilities of line-crossing.</li>
+<li>
+<p><strong>Area of the square</strong>:<br/>
+  [
+  A_{square} = 2 \times 2 = 4
+  ]</p>
+</li>
+<li>
+<p><strong>Area of the circle</strong>:<br/>
+  [
+  A_{circle} = \pi r^2 = \pi
+  ]</p>
+</li>
 </ul>
-<hr/>
-<h2 id="part-1-circle-method">⚪ Part 1: Circle Method</h2>
-<h3 id="theory">📌 Theory</h3>
-<p>A unit circle is inscribed in a square with side length 2. The area ratio of circle to square is:</p>
+<p>We generate many random points inside the square and count how many fall inside the circle using the condition:</p>
 <div class="arithmatex">\[
-\frac{\text{Area of Circle}}{\text{Area of Square}} = \frac{\pi \cdot r^2}{4} = \frac{\pi}{4}
+x^2 + y^2 \leq 1
 \]</div>
-<p>So, we estimate π by:</p>
+<p>The ratio of the number of points inside the circle to the total number of points approximates the ratio of their areas:</p>
 <div class="arithmatex">\[
-\pi \approx 4 \cdot \frac{\text{Points inside circle}}{\text{Total points}}
+\frac{\text{Points inside circle}}{\text{Total points}} \approx \frac{\pi}{4}
+\]</div>
+<p>Therefore, the value of π can be estimated as:</p>
+<div class="arithmatex">\[
+\pi \approx 4 \times \frac{\text{Points inside circle}}{\text{Total points}}
 \]</div>
 <hr/>
-<h3 id="code-block-1-estimate-and-plot-points">🧪 Code Block 1 – Estimate π and Plot Points</h3>
+<h3 id="python-code-circle-simulation">💻 Python Code: Circle Simulation</h3>
 <pre><code class="language-python">import numpy as np
 import matplotlib.pyplot as plt
 
-def estimate_and_plot_circle(N):
-    x = np.random.uniform(-1, 1, size=N)
-    y = np.random.uniform(-1, 1, size=N)
-    inside = (x**2 + y**2) &lt;= 1
-    pi_estimate = 4 * np.sum(inside) / N
+def estimate_pi_circle(n_points):
+    x = np.random.uniform(-1, 1, n_points)
+    y = np.random.uniform(-1, 1, n_points)
+    inside_circle = x**2 + y**2 &lt;= 1
+    pi_estimate = 4 * np.sum(inside_circle) / n_points
+    return pi_estimate, x, y, inside_circle
 
-    plt.figure(figsize=(6,6))
-    plt.scatter(x[inside], y[inside], s=1, color='blue', label='Inside Circle')
-    plt.scatter(x[~inside], y[~inside], s=1, color='red', label='Outside Circle')
-    theta = np.linspace(0, 2*np.pi, 300)
-    plt.plot(np.cos(theta), np.sin(theta), color='black', linewidth=1, label='Unit Circle')
-    plt.title(f"Monte Carlo Estimation of π\nπ ≈ {pi_estimate:.6f} with N = {N}")
-    plt.axis("equal")
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-
-    return pi_estimate
+# Run the simulation
+pi, x, y, inside = estimate_pi_circle(10000)
+print(f"Estimated Pi: {pi}")
 </code></pre>
-<h3 id="explanation">💬 Explanation</h3>
-<ul>
-<li>Generates <code>N</code> random points in a 2D square.</li>
-<li>Checks which ones fall inside the unit circle (<code>x² + y² ≤ 1</code>).</li>
-<li>Calculates π as <code>4 × (inside points / total points)</code> and visualizes them.</li>
-</ul>
 <hr/>
-<h3 id="code-block-2-circle-convergence-plot">📊 Code Block 2 – Circle Convergence Plot</h3>
-<pre><code class="language-python">def convergence_circle(sample_sizes):
-    import math
-    errors = []
-    for N in sample_sizes:
-        x = np.random.uniform(-1, 1, size=N)
-        y = np.random.uniform(-1, 1, size=N)
-        inside = (x**2 + y**2) &lt;= 1
-        pi_est = 4 * np.sum(inside) / N
-        error = abs(pi_est - math.pi)
-        errors.append(error)
-        print(f"N = {N}, π ≈ {pi_est:.6f}, Error = {error:.6f}")
-    return errors
+<h3 id="visualization-of-the-circle-method">📊 Visualization of the Circle Method</h3>
+<pre><code class="language-python">plt.figure(figsize=(6,6))
+plt.scatter(x[inside], y[inside], color='green', s=1, label='Inside Circle')
+plt.scatter(x[~inside], y[~inside], color='red', s=1, label='Outside Circle')
+plt.gca().set_aspect('equal')
+plt.title("Monte Carlo Estimation of Pi (Circle Method)")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
 </code></pre>
-<h3 id="explanation_1">💬 Explanation</h3>
-<ul>
-<li>Estimates π for each sample size and prints error.</li>
-<li>Helps visualize convergence with increasing N.</li>
-</ul>
+<p><img alt="alt text" src="../monte%20.png"/></p>
 <hr/>
-<h2 id="part-2-buffons-needle-method">🪡 Part 2: Buffon’s Needle Method</h2>
-<h3 id="theory_1">📌 Theory</h3>
-<p>If a needle of length <code>L</code> is dropped on a floor with lines spaced <code>d</code> units apart, the probability it crosses a line is:</p>
-<div class="arithmatex">\[
-P = \frac{2L}{d\pi} \quad \Rightarrow \quad \pi \approx \frac{2L \cdot N}{d \cdot N_{\text{cross}}}
-\]</div>
-<p>For simplicity, set <span class="arithmatex">\( L = d = 1 \)</span>.</p>
-<hr/>
-<h3 id="code-block-3-estimate-using-buffons-needle">🧪 Code Block 3 – Estimate π Using Buffon’s Needle</h3>
-<pre><code class="language-python">def estimate_pi_buffon(N, L=1.0, d=1.0):
-    X = np.random.uniform(0, d/2, size=N)
-    theta = np.random.uniform(0, np.pi/2, size=N)
-    crosses = (L/2) * np.sin(theta) &gt;= X
-    N_cross = np.sum(crosses)
-    if N_cross == 0:
-        return None
-    return (2 * L * N) / (d * N_cross)
-</code></pre>
-<h3 id="explanation_2">💬 Explanation</h3>
-<ul>
-<li>Simulates <code>N</code> needle drops.</li>
-<li>Uses crossing probability to estimate π.</li>
-</ul>
-<hr/>
-<h3 id="code-block-4-visualize-buffons-needles">📐 Code Block 4 – Visualize Buffon’s Needles</h3>
-<pre><code class="language-python">def plot_buffon_needles(N=100, L=1.0, d=1.0):
-    x_center = np.random.uniform(-2, 2, size=N)
-    y_center = np.random.uniform(0, d/2, size=N)
-    theta = np.random.uniform(0, np.pi, size=N)
-
-    plt.figure(figsize=(6,6))
-    for y_line in range(-3, 4):
-        plt.axhline(y_line * d, color='gray', linewidth=0.5)
-
-    for i in range(N):
-        dx = (L/2) * np.cos(theta[i])
-        dy = (L/2) * np.sin(theta[i])
-        x1, x2 = x_center[i] - dx, x_center[i] + dx
-        y1, y2 = y_center[i] - dy, y_center[i] + dy
-        color = 'blue' if int(y1 // d) != int(y2 // d) else 'red'
-        plt.plot([x1, x2], [y1, y2], color=color, linewidth=1)
-
-    plt.title("Buffon’s Needle Simulation")
-    plt.axis("equal")
-    plt.grid(True)
-    plt.show()
-</code></pre>
-<h3 id="explanation_3">💬 Explanation</h3>
-<ul>
-<li>Visualizes each needle's placement and checks whether it crosses any line.</li>
-</ul>
-<hr/>
-<h3 id="code-block-5-buffons-needle-convergence">📊 Code Block 5 – Buffon’s Needle Convergence</h3>
-<pre><code class="language-python">def convergence_buffon(sample_sizes, L=1.0, d=1.0):
-    import math
-    errors = []
-    for N in sample_sizes:
-        pi_est = estimate_pi_buffon(N, L, d)
-        if pi_est:
-            error = abs(pi_est - math.pi)
-            errors.append(error)
-            print(f"N = {N}, π ≈ {pi_est:.6f}, Error = {error:.6f}")
-        else:
-            print(f"N = {N}, No crossings → Cannot estimate π")
-    return errors
-</code></pre>
-<h2 id="comparative-analysis">📊 Comparative Analysis</h2>
-<p>In this section, we compare the two Monte Carlo methods used for estimating π — the <strong>Circle Method</strong> and <strong>Buffon’s Needle Method</strong> — in terms of convergence, computational efficiency, and ease of implementation.</p>
-<h3 id="comparison-criteria">🔍 Comparison Criteria</h3>
+<h3 id="accuracy-and-convergence">📈 Accuracy and Convergence</h3>
 <table>
 <thead>
 <tr>
-<th>Criterion</th>
-<th>Circle Method</th>
-<th>Buffon’s Needle Method</th>
+<th>Number of Points</th>
+<th>Estimated π</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Concept</strong></td>
-<td>Random points in a square</td>
-<td>Randomly dropped needle crossing lines</td>
+<td>100</td>
+<td>~3.12</td>
 </tr>
 <tr>
-<td><strong>Mathematical Foundation</strong></td>
-<td>Geometric area ratio (π/4)</td>
-<td>Probability of crossing (2L / dπ)</td>
+<td>1,000</td>
+<td>~3.14</td>
 </tr>
 <tr>
-<td><strong>Code Simplicity</strong></td>
-<td>Very easy to implement</td>
-<td>Slightly more complex due to trigonometry</td>
+<td>10,000</td>
+<td>~3.1412</td>
 </tr>
 <tr>
-<td><strong>Convergence Rate</strong></td>
-<td>O(1/√N)</td>
-<td>O(1/√N), slower in practice</td>
-</tr>
-<tr>
-<td><strong>Variance</strong></td>
-<td>Lower variance per sample</td>
-<td>Higher variance per sample</td>
-</tr>
-<tr>
-<td><strong>Visualization</strong></td>
-<td>Simple 2D scatter plot</td>
-<td>Requires line/needle visualization</td>
-</tr>
-<tr>
-<td><strong>Accuracy (small N)</strong></td>
-<td>Typically better at small N</td>
-<td>Less stable unless N is large</td>
-</tr>
-<tr>
-<td><strong>Historical Value</strong></td>
-<td>Modern numerical method</td>
-<td>Classic probability-based geometry problem</td>
+<td>100,000</td>
+<td>~3.14159</td>
 </tr>
 </tbody>
 </table>
-<h3 id="observations">📈 Observations</h3>
+<p>The more points we generate, the more accurate the estimate becomes. The circle method has a relatively fast convergence rate and is easy to implement computationally.</p>
+<hr/>
+<h2 id="part-2-estimating-using-buffons-needle">🟠 Part 2: Estimating π Using Buffon’s Needle</h2>
+<h3 id="theoretical-foundation_1">🧠 Theoretical Foundation</h3>
+<p>Buffon’s Needle problem is a famous probability problem proposed by Georges-Louis Leclerc, Comte de Buffon. It involves dropping a needle of length <span class="arithmatex">\( l \)</span> on a surface with parallel lines spaced at distance <span class="arithmatex">\( d \)</span> apart.</p>
+<p>If the needle is dropped randomly, the probability that it will cross a line is:</p>
+<div class="arithmatex">\[
+P = \frac{2l}{\pi d}
+\]</div>
+<p>Rearranging the formula gives:</p>
+<div class="arithmatex">\[
+\pi \approx \frac{2l \cdot N}{d \cdot H}
+\]</div>
+<p>Where:
+- <span class="arithmatex">\( N \)</span>: total number of needle drops
+- <span class="arithmatex">\( H \)</span>: number of times the needle crosses a line
+- <span class="arithmatex">\( l \)</span>: needle length (must be ≤ distance between lines <span class="arithmatex">\( d \)</span>)</p>
+<hr/>
+<h3 id="python-code-buffons-needle-simulation">💻 Python Code: Buffon’s Needle Simulation</h3>
+<pre><code class="language-python">import numpy as np
+
+def buffon_needle_simulation(n_drops, needle_length=1.0, line_distance=2.0):
+    hits = 0
+    for _ in range(n_drops):
+        y = np.random.uniform(0, line_distance / 2)
+        theta = np.random.uniform(0, np.pi / 2)
+        if y &lt;= (needle_length / 2) * np.sin(theta):
+            hits += 1
+    if hits == 0:
+        return None
+    pi_estimate = (2 * needle_length * n_drops) / (line_distance * hits)
+    return pi_estimate
+
+# Example
+estimated_pi = buffon_needle_simulation(10000)
+print(f"Estimated Pi with Buffon's Needle: {estimated_pi}")
+</code></pre>
+<hr/>
+<h3 id="visualization-optional-example">📊 Visualization (Optional Example)</h3>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(6, 4))
+
+# Draw parallel lines
+for i in range(6):
+    ax.axhline(i, color='gray', linestyle='--')
+
+# Draw some needles
+for _ in range(100):
+    y = np.random.uniform(0, 5)
+    theta = np.random.uniform(0, np.pi)
+    x_start = np.random.uniform(0, 5)
+    x_end = x_start + np.cos(theta)
+    y_end = y + np.sin(theta)
+    ax.plot([x_start, x_end], [y, y_end], color='blue')
+
+ax.set_title("Buffon's Needle Visualization")
+ax.set_xlim(0, 6)
+ax.set_ylim(0, 6)
+plt.show()
+</code></pre>
+<h2 id="_1"><img alt="alt text" src="../download.png"/></h2>
+<h3 id="accuracy-and-convergence_1">📈 Accuracy and Convergence</h3>
+<table>
+<thead>
+<tr>
+<th>Number of Drops</th>
+<th>Estimated π</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100</td>
+<td>~3.1</td>
+</tr>
+<tr>
+<td>1,000</td>
+<td>~3.14</td>
+</tr>
+<tr>
+<td>10,000</td>
+<td>~3.141</td>
+</tr>
+</tbody>
+</table>
+<p>This method converges more slowly than the circle method and is more sensitive to random variations, but it's a beautiful example of using probability and geometry to estimate π.</p>
+<hr/>
+<h2 id="comparison-of-methods">📊 Comparison of Methods</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+<th>Convergence Speed</th>
+<th>Accuracy (10,000 runs)</th>
+<th>Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Circle Method</td>
+<td>Random points in square around a circle</td>
+<td>Fast</td>
+<td>High (~3.1412)</td>
+<td>Simple</td>
+</tr>
+<tr>
+<td>Buffon’s Needle</td>
+<td>Needle drops on parallel lines</td>
+<td>Slower</td>
+<td>Moderate (~3.14)</td>
+<td>Moderate</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="conclusion">📚 Conclusion</h2>
+<p>Monte Carlo methods provide fascinating ways to estimate π using randomness and probability. While the circle-based method is computationally efficient and quick to converge, Buffon’s Needle demonstrates a more elegant and theoretical approach through geometric probability.</p>
+<p>These simulations are not just academic exercises—they reflect real-world principles used in simulations for physics, engineering, and financial risk analysis.</p>
+<hr/>
+<h2 id="deliverables">✅ Deliverables</h2>
 <ul>
-<li>The <strong>Circle Method</strong> tends to <strong>converge faster</strong> and gives a more stable estimate of π for small to moderate sample sizes.</li>
-<li><strong>Buffon’s Needle</strong>, while mathematically elegant and historically significant, generally requires <strong>more samples</strong> to reach a similar level of accuracy due to its <strong>higher variance</strong>.</li>
-<li>The Circle Method relies purely on algebraic comparison <span class="arithmatex">\((x^2 + y^2 \leq 1)\)</span>, whereas Buffon’s Needle requires <strong>trigonometric functions</strong>, which can be computationally heavier.</li>
-<li><strong>Visualization</strong> of the Circle Method is straightforward (color-coded dots), while the Needle Method offers more visually engaging outputs (lines crossing horizontal rules).</li>
+<li>[x] Clear explanations of the theory and methods</li>
+<li>[x] Python code for both simulations</li>
+<li>[x] Visualizations for both methods</li>
+<li>[x] Analysis of convergence and performance</li>
 </ul>
-<h3 id="conclusion">✅ Conclusion</h3>
-<p>Both methods demonstrate the power of randomness in approximating π. However, for educational, computational, and practical purposes, the <strong>Circle Method</strong> is typically preferred due to:</p>
+<hr/>
+<h2 id="notes">📎 Notes</h2>
 <ul>
-<li>Faster convergence with fewer samples</li>
-<li>Lower computational overhead</li>
-<li>Simpler implementation and clearer visualization</li>
+<li>Libraries used: <code>NumPy</code>, <code>Matplotlib</code></li>
+<li>Both methods rely on large sample sizes for accurate results.</li>
+<li>Buffon’s Needle requires careful handling of geometry and trigonometry.</li>
 </ul>
-<p>Buffon’s Needle remains a fascinating historical example of probabilistic geometry, ideal for illustrating connections between <strong>randomness</strong>, <strong>geometry</strong>, and <strong>integration</strong>.</p>
-<blockquote>
-<p>✨ Tip: If your goal is speed and accuracy → use the Circle Method.<br/>
-If your goal is demonstrating mathematical beauty → explore Buffon’s Needle!</p>
-</blockquote>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">

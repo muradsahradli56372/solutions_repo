@@ -120,25 +120,135 @@ The simulation allowed us to explore how various parameters influence the conver
 
 ---
 
-## 5. Practical Implications of CLT
+
+## 5. Convergence Analysis of Sample Means
+
+The plot titled **"Convergence Diagnostics for Sample Means"** illustrates how the statistical properties of sample means change as the sample size increases, using three different distributions: **Uniform**, **Exponential**, and **Binomial**.
+
+The figure is divided into four subplots:
+
+1. **Skewness**:
+   - As sample size increases, skewness converges toward 0, especially for symmetric distributions like Uniform and Binomial.
+   - Exponential distribution shows positive skewness, which reduces with larger samples due to the Central Limit Theorem (CLT).
+
+2. **Excess Kurtosis**:
+   - Measures the "tailedness" of the sampling distribution.
+   - Converges toward 0 as sample size increases, again supporting CLT expectations.
+
+3. **SE Ratio (Observed / Expected)**:
+   - Compares the empirically observed standard error with the theoretical expectation `σ/√n`.
+   - All distributions show the ratio approaching 1, confirming that standard error behaves as expected under sampling.
+
+4. **Shapiro–Wilk p-value**:
+   - Tests for normality.
+   - For large sample sizes, all distributions yield high p-values (above 0.05), suggesting that the sampling distributions become approximately normal — a core principle of CLT.
+
+These plots collectively demonstrate that regardless of the underlying population distribution, the distribution of sample means becomes increasingly normal as the sample size increases.
+```
+import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+
+np.random.seed(42)
+plt.style.use('seaborn-v0_8-whitegrid')
+sns.set_palette("viridis")
+
+
+N = 100_000
+populations = {
+    "Uniform": np.random.uniform(0, 1, N),
+    "Exponential": np.random.exponential(scale=1.0, size=N),
+    "Binomial": np.random.binomial(n=10, p=0.3, size=N)
+}
+
+sample_sizes = [2, 5, 10, 15, 20, 30, 50, 100]
+num_samples = 3000
+
+def generate_distributions(population, sample_sizes, num_samples):
+    return {
+        n: np.array([np.mean(np.random.choice(population, size=n, replace=True)) for _ in range(num_samples)])
+        for n in sample_sizes
+    }
+
+def compute_stats(distributions, population):
+    pop_std = np.std(population)
+    rows = []
+    for n, means in distributions.items():
+        subset = means if len(means) <= 5000 else np.random.choice(means, 5000, replace=False)
+        _, p_sw = stats.shapiro(subset)
+        rows.append({
+            'Sample Size': n,
+            'Skewness': stats.skew(means),
+            'Kurtosis': stats.kurtosis(means),
+            'SE Ratio': means.std() / (pop_std / np.sqrt(n)),
+            'Shapiro-Wilk p-value': p_sw
+        })
+    return pd.DataFrame(rows)
+
+
+all_stats = []
+for name, population in populations.items():
+    dist = generate_distributions(population, sample_sizes, num_samples)
+    df = compute_stats(dist, population)
+    df['Distribution'] = name
+    all_stats.append(df)
+
+df_all = pd.concat(all_stats)
+
+# Vizualizasiya
+fig, axes = plt.subplots(2, 2, figsize=(14, 12), constrained_layout=True)
+axes = axes.flatten()
+metrics = ['Skewness', 'Kurtosis', 'SE Ratio', 'Shapiro-Wilk p-value']
+titles = ['Skewness', 'Excess Kurtosis', 'SE Ratio (Observed/Expected)', 'Shapiro–Wilk p-value']
+y_labels = ['Skewness', 'Kurtosis', 'Ratio', 'p-value']
+horizontal_lines = [0, 0, 1, 0.05]
+yscales = ['linear', 'linear', 'linear', 'log']
+
+for i, metric in enumerate(metrics):
+    ax = axes[i]
+    for dist in populations.keys():
+        subset = df_all[df_all['Distribution'] == dist]
+        ax.plot(subset['Sample Size'], subset[metric], 'o-', label=dist)
+    ax.axhline(horizontal_lines[i], linestyle='--', color='red' if i==3 else 'black', alpha=0.7)
+    ax.set_xscale('log')
+    ax.set_yscale(yscales[i])
+    ax.set_title(titles[i])
+    ax.set_xlabel('Sample Size')
+    ax.set_ylabel(y_labels[i])
+    ax.legend()
+    ax.grid(alpha=0.3)
+
+fig.suptitle('Convergence Diagnostics for Sample Means', fontsize=18)
+fig.savefig('convergence_analysis.png', dpi=300)
+plt.show()
+print("Saved plot as: convergence_analysis.png")
+```
+![alt text](<download (1).png>)
+
+
+## 6. Practical Implications of CLT
 
 The Central Limit Theorem underpins many real-world applications. Here are three areas where its impact is significant:
 
-### 5.1 Quality Control
+### 6.1 Quality Control
 
 In manufacturing, measurements (e.g., lengths, weights) from a process may vary. Even if individual measurements are not normally distributed, the **average of a sample** of these measurements will be approximately normal, allowing for:
 
 - Control chart construction
 - Defect detection using statistical thresholds
 
-### 5.2 Finance and Risk Modeling
+### 6.2 Finance and Risk Modeling
 
 Financial returns may have non-normal characteristics (e.g., skewness, kurtosis), but **averaging returns** over time or across portfolios often leads to normally distributed values. This assumption allows:
 
 - Reliable estimation of expected returns
 - Risk measurement tools like Value at Risk (VaR)
 
-### 5.3 Statistical Inference
+### 6.3 Statistical Inference
 
 Most parametric tests (e.g., $t$-test, ANOVA) assume normality of the sampling distribution of the mean. CLT justifies this assumption, making such tests valid when:
 

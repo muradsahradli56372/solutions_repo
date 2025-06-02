@@ -1,127 +1,160 @@
-# Problem 1: Simulating the Effects of the Lorentz Force
+# Simulating the Effects of the Lorentz Force
 
 ## Introduction
 
-The Lorentz force is the fundamental law describing the motion of charged particles in electric and magnetic fields:
+The **Lorentz force** is a cornerstone of classical electromagnetism, describing the total force exerted on a charged particle in the presence of electric and magnetic fields. It is defined as:
 
 $$
-\vec{F} = q(\vec{E} + \vec{v} \times \vec{B})
+\mathbf{F} = q\mathbf{E} + q\mathbf{v} \times \mathbf{B}
 $$
 
-It governs particle behavior in systems ranging from **cyclotrons**, **mass spectrometers**, and **plasma traps**, to the magnetic fields of astrophysical objects. In this project, we simulate particle motion under different field conditions to gain an intuitive understanding of how the Lorentz force governs motion.
+Here:
+- $\mathbf{F}$ is the total electromagnetic force,
+- $q$ is the charge of the particle,
+- $\mathbf{E}$ is the electric field,
+- $\mathbf{B}$ is the magnetic field,
+- $\mathbf{v}$ is the velocity of the particle.
+
+The Lorentz force is **not just a theoretical construct** — it governs real-world systems in plasma physics, particle accelerators, electric motors, and even the behavior of cosmic rays in space. Unlike gravitational forces, electromagnetic forces can accelerate charged particles in directions *not aligned* with their velocity, leading to complex and often beautiful trajectories such as spirals, helices, and drifts.
+
+Studying the Lorentz force is also essential for understanding:
+- **Cyclotron and synchrotron motion** in accelerator physics,
+- **Confinement of plasma particles** in fusion reactors like Tokamaks and Stellarators,
+- **Ion filtering** in mass spectrometers,
+- **Drift motion** in Earth's magnetosphere and solar winds.
+
+In this report, we numerically simulate how a single charged particle moves under different electric and magnetic field configurations, using Python to visualize the resulting trajectories. These simulations enable an intuitive grasp of concepts such as **Larmor radius**, **cyclotron frequency**, and **E×B drift velocity**.
 
 ---
 
-## 1. Applications of the Lorentz Force
+## 1. Exploration of Applications
 
-- **Particle Accelerators**: Lorentz force is used to steer and accelerate particles using electric/magnetic fields.
-- **Mass Spectrometers**: Separate ions by charge-to-mass ratio using circular trajectories in magnetic fields.
-- **Plasma Confinement**: Magnetic fields constrain charged particles in fusion devices like tokamaks.
+The Lorentz force directly influences a broad range of technologies and natural phenomena. A few prominent applications include:
 
-Electric fields influence **acceleration** while magnetic fields affect **direction** — typically resulting in **circular** or **helical** motion.
+- **Particle Accelerators**: Magnetic and electric fields steer and focus high-speed particle beams.
+- **Plasma Confinement**: Devices like Tokamaks use magnetic fields to trap plasma and prevent it from contacting reactor walls.
+- **Mass Spectrometry**: Ions are separated by mass-to-charge ratio using crossed $E$ and $B$ fields.
+- **Electric Motors and Generators**: The fundamental working principle is rooted in magnetic forces on moving charges.
+- **Astrophysical Plasmas**: Cosmic rays and solar wind particles spiral along magnetic field lines.
+
+These systems all rely on the ability of electromagnetic fields to **redirect, trap, or accelerate** charged particles.
 
 ---
 
 ## 2. Simulating Particle Motion
 
-### 2.1 Equations of Motion
-
-Using Newton’s second law:
+We simulate the motion of a charged particle under Lorentz force by solving Newton’s second law:
 
 $$
-m\frac{d\vec{v}}{dt} = q(\vec{E} + \vec{v} \times \vec{B})
+\mathbf{F} = m\mathbf{a} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})
 $$
 
-This leads to a system of coupled differential equations which we solve numerically using the **Euler method**.
+We use the **Euler method** for numerical integration:
 
-### 2.2 Initial Setup (Python)
+- Time domain is discretized as $t_0, t_1, \dots, t_n$
+- At each time step:
+  - Compute acceleration $\mathbf{a}_n$
+  - Update velocity $\mathbf{v}_{n+1} = \mathbf{v}_n + \mathbf{a}_n \cdot dt$
+  - Update position $\mathbf{r}_{n+1} = \mathbf{r}_n + \mathbf{v}_{n+1} \cdot dt$
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-
-# Constants
-q = 1.0       # charge (C)
-m = 1.0       # mass (kg)
-B = np.array([0, 0, 1.0])  # Uniform magnetic field (T)
-E = np.array([0.0, 0.0, 0.0])  # Uniform electric field (V/m)
-v0 = np.array([1.0, 0.0, 1.0])  # Initial velocity (m/s)
-r0 = np.array([0.0, 0.0, 0.0])  # Initial position (m)
-
-# Time settings
-dt = 0.01
-num_steps = 2000
-
-# Initialize position and velocity arrays
-r = np.zeros((num_steps, 3))
-v = np.zeros((num_steps, 3))
-r[0], v[0] = r0, v0
-
-# Euler method simulation
-for i in range(num_steps - 1):
-    F = q * (E + np.cross(v[i], B))
-    a = F / m
-    v[i+1] = v[i] + a * dt
-    r[i+1] = r[i] + v[i] * dt
-```
-## 3. Parameter Exploration
-
-By changing various parameters in the simulation, we can observe how they influence the trajectory of a charged particle. The most important parameters to explore include:
-
-### 3.1 Magnetic Field Strength $|\vec{B}|$
-
-- **Effect**: A stronger magnetic field increases the centripetal force on the particle.
-- **Result**: The particle spirals more tightly; the radius of curvature (Larmor radius) decreases.
-- **Formula**:
-
-$$
-r_L = \frac{mv_\perp}{|qB|}
-$$
-
-where:
-- $r_L$ is the Larmor radius,
-- $v_\perp$ is the component of velocity perpendicular to $\vec{B}$.
-
-### 3.2 Electric Field Strength $|\vec{E}|$
-
-- **Effect**: Causes net acceleration in the direction of the electric field.
-- **Result**:
-  - If $\vec{E}$ is parallel to $\vec{B}$ → motion stretches along the field lines.
-  - If $\vec{E}$ is perpendicular to $\vec{B}$ → particle experiences **E × B drift**.
-
-### 3.3 Initial Velocity $\vec{v}_0$
-
-- **Parallel to $\vec{B}$** ($v_\parallel$): The particle moves linearly along the magnetic field direction.
-- **Perpendicular to $\vec{B}$** ($v_\perp$): Circular motion due to Lorentz force.
-- **Mixed Components**: The motion becomes **helical**.
-
-### 3.4 Charge $q$ and Mass $m$
-
-- **Effect**: These values directly affect the radius and acceleration.
-- **Observation**:
-  - Increasing charge $q$ → tighter spiral (stronger force).
-  - Increasing mass $m$ → wider spiral (more inertia).
-- **Cyclotron frequency**:
-
-$$
-\omega_c = \frac{|q|B}{m}
-$$
-
-This frequency determines how fast the particle revolves in the magnetic field.
+### Field Configurations Simulated:
+1. Uniform Magnetic Field Only
+2. Uniform Magnetic and Electric Fields
+3. Crossed Electric and Magnetic Fields
+4. Angled Electric Field Causing Drift
+5. Opposing E and B With Circular Drift
 
 ---
 
-### Summary Table
+## 3. Trajectory Types and Motion Characteristics
 
-| Parameter          | Physical Meaning                            | Trajectory Effect                              |
-|-------------------|---------------------------------------------|------------------------------------------------|
-| $|\vec{B}|$        | Magnetic field strength                     | Tighter or looser spirals (affects $r_L$)      |
-| $|\vec{E}|$        | Electric field strength                     | Linear acceleration or drift                   |
-| $\vec{v}_0$        | Initial velocity                            | Determines shape: circular, helical, linear    |
-| $q$ (charge)       | Particle’s electric charge                  | Stronger force → faster turns                  |
-| $m$ (mass)         | Particle’s mass                             | Heavier particles spiral more slowly           |
+| Configuration | Motion | Explanation |
+|---------------|--------|-------------|
+| $\mathbf{E}=0$, $\mathbf{B} \neq 0$ | **Circular** | Particle experiences centripetal force due to $\mathbf{v} \times \mathbf{B}$. |
+| $\mathbf{E} \parallel \mathbf{B}$ | **Helical** | Particle spirals along magnetic field lines, with linear acceleration. |
+| $\mathbf{E} \perp \mathbf{B}$ | **Drift** | Circular motion combined with sideways drift $\mathbf{v}_{\text{drift}} = \frac{\mathbf{E} \times \mathbf{B}}{B^2}$. |
+| Angled Fields | **Drifting Spiral** | Drift motion in diagonal or curved directions. |
+| Asymmetric Inputs | **Irregular Paths** | More chaotic or elliptical spirals due to imbalanced inputs. |
 
 ---
 
+## 4. Simulation Results and Explanations
 
+Each simulation was performed using:
+
+- $q = 1\,\mathrm{C}$ (unit charge)
+- $m = 1\,\mathrm{kg}$ (unit mass)
+- $\Delta t = 0.01\,\mathrm{s}$
+- Simulation time $T = 20\,\mathrm{s}$
+
+---
+
+### 4.1 Uniform Magnetic Field — Circular Orbit
+
+Only magnetic field in the $z$ direction: $\mathbf{B} = (0, 0, 1)$  
+Initial velocity is orthogonal: $\mathbf{v}_0 = (1, 0, 0)$  
+Result: classic circular trajectory in $xy$-plane.
+
+![Circular motion](circular_motion.png)
+
+---
+
+### 4.2 Helical Motion — $E$ and $B$ Fields Parallel
+
+$\mathbf{E} = (0, 0, 0.5)$, $\mathbf{B} = (0, 0, 1)$  
+Initial velocity has $z$ component: $\mathbf{v}_0 = (1, 0, 0.5)$  
+Result: Particle spirals upward, forming a helix.
+
+![Helical motion](helical_motion.png)
+
+---
+
+### 4.3 Crossed Fields — Classical Drift
+
+$\mathbf{E} = (1, 0, 0)$, $\mathbf{B} = (0, 0, 1)$  
+Initial velocity is orthogonal: $\mathbf{v}_0 = (0, 1, 0)$  
+Result: Drift path perpendicular to both fields.
+
+![Crossed fields](crossed_fields.png)
+
+---
+
+### 4.4 Angled Fields Causing Diagonal Drift
+
+$\mathbf{E} = (0.5, 0.5, 0)$, $\mathbf{B} = (0, 0, 1)$  
+Initial velocity is also diagonal.  
+Result: Spiral motion drifting in diagonal direction.
+
+![Drift motion](drift_motion.png)
+
+---
+
+### 4.5 Curved Drift With Imbalance
+
+$\mathbf{E} = (0, 1, 0)$, $\mathbf{B} = (0, 0, 1)$  
+Initial velocity not aligned with field.  
+Result: Circular arcs with drift — used in beam control.
+
+![Curved drift](circular_drift.png)
+
+---
+
+## 5. Parameter Exploration
+
+We observe how changes in:
+- **Charge or mass**: affects radius and frequency ($r_L = mv/qB$)
+- **Velocity direction**: modifies spiral pitch
+- **Field strength**: $B \uparrow$ → tighter spiral; $E \uparrow$ → stronger drift
+
+Such insights are useful in optimizing real devices (e.g. plasma traps, filters).
+
+---
+
+## 6. Further Extensions
+
+- Add **Runge-Kutta** 4th order method for more accurate paths.
+- Visualize in **3D** using `mpl_toolkits.mplot3d` to explore full helices.
+- Add **non-uniform fields** to simulate Earth’s magnetosphere or magnetic mirrors.
+- Combine multiple particles for plasma-scale behavior.
+
+---
